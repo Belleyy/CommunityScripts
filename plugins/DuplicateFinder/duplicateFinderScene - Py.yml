@@ -1,0 +1,20 @@
+name: "Duplicate_Finder_Scene - Py"
+description: Same things as 'Scene Duplicate Checker' in Stash.
+version: 0.1.0
+exec:
+  - python
+  - "{pluginDir}/duplicateFinderScene.py"
+interface: raw
+tasks:
+  - name: 'Distance - Exact'
+    defaultArgs:
+      mode: exact
+  - name: 'Distance - High'
+    defaultArgs:
+      mode: high
+  - name: 'Distance - Medium'
+    defaultArgs:
+      mode: medium
+  - name: 'Distance - Low'
+    defaultArgs:
+      mode: low
