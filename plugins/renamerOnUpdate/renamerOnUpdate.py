@@ -1,4 +1,5 @@
 import difflib
+import glob
 import json
 import os
 import re
@@ -955,25 +956,28 @@ def file_rename(current_path: str, new_path: str, scene_info: dict):
         return 1
 
 def associated_rename(scene_info: dict):
-    if ASSOCIATED_EXT:
-        for ext in ASSOCIATED_EXT:
-            p = os.path.splitext(scene_info['current_path'])[0] + "." + ext
-            p_new = os.path.splitext(scene_info['final_path'])[0] + "." + ext
-            if os.path.isfile(p):
-                try:
-                    shutil.move(p, p_new)
-                except Exception as err:
-                    log.LogError(f"Something prevents renaming this file '{p}' - err: {err}")
-                    continue
+    if ASSOCIATED_FILE:
+        p = os.path.splitext(scene_info['current_path'])[0] + ".*"
+        for file in glob.glob(p):
+            # check for exact name
+            if os.path.splitext(os.path.basename(file))[0] != os.path.splitext(os.path.basename(scene_info['current_path']))[0]:
+                continue
+            p_new = os.path.join(os.path.dirname(scene_info['final_path']), os.path.basename(file))
+            try:
+                shutil.move(file, p_new)
+            except Exception as err:
+                log.LogError(f"Something prevents renaming this file '{file}' - err: {err}")
+                continue
             if os.path.isfile(p_new):
-                log.LogInfo(f"[OS] Associate file renamed ({p_new})")
+                log.LogInfo(f"[OS] Associate file renamed ({os.path.basename(file)})")
                 if LOGFILE:
                     try:
                         with open(LOGFILE, 'a', encoding='utf-8') as f:
-                            f.write(f"{scene_info['scene_id']}|{p}|{p_new}\n")
+                            f.write(f"{scene_info['scene_id']}|{file}|{p_new}\n")
                     except Exception as err:
-                        shutil.move(p_new, p)
+                        shutil.move(p_new, file)
                         log.LogError(f"Restoring the original name, error writing the logfile: {err}")
+
 
 
 def renamer(scene_id, db_conn=None):
@@ -1186,7 +1190,7 @@ TEMPLATE_FIELD = "$date_format $date $year $performer_path $performer $title $he
 
 # READING CONFIG
 
-ASSOCIATED_EXT = config.associated_extension
+ASSOCIATED_FILE = config.associated_file
 
 FIELD_WHITESPACE_SEP = config.field_whitespaceSeperator
 FIELD_REPLACER = config.field_replacer
