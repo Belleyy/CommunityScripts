@@ -118,8 +118,8 @@ log_file = r""
 ######################################
 #               Settings             #
 
-# rename associated file (subtitle, funscript) if present
-associated_extension = ["srt", "vtt", "funscript"]
+# rename/move associated file (exact filename with a different extension)
+associated_file = True
 
 # use filename as title if no title is set
 # it will cause problem if you update multiple time the same scene without title.
