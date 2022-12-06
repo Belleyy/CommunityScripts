@@ -1,0 +1,9 @@
+name: SFW Switch
+description: Blurs covers and images
+url: https://github.com/stashapp/CommunityScripts
+version: 1.0
+ui:
+  javascript:
+  - sfw.js
+  css:
+  - sfw.css
