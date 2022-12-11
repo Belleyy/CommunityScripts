@@ -28,7 +28,7 @@ function create_sfwswitch_button() {
         waitForElementClass("navbar-buttons", function () { //#CSS
             var main_Div = document.getElementsByClassName("navbar-buttons")[0]; //#CSS
             main_Div.insertBefore(plugin_div, main_Div.childNodes[0]);
-            document.getElementById("plugin_sfw").addEventListener("click", sfw_mode, false);
+            document.getElementById("plugin_sfw").addEventListener("click", sfw_switch, false);
             sfw_mode();
         });
     }
