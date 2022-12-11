@@ -48,5 +48,4 @@ function waitForElementClass(elementId, callBack, time) {
     }, time);
 }
 
-//addCSS(BUTTON_CSS);
 sfwswitch_createbutton();
