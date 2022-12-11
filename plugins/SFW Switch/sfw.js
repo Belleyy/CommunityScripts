@@ -1,26 +1,4 @@
-/*
-//https://stackoverflow.com/a/56825511
-const addCSS = css => document.head.appendChild(document.createElement("style")).innerHTML=css;
-const BUTTON_CSS = `
-#plugin_sfw{
-    background: none;
-    color: #f5f8fa;
-    transition: none;
-    border: none;
-    margin: 0;
-    padding: .375rem .75rem;
-    border-radius: .25rem;
-    max-height: 35px;
-    max-width: 35px;
-}
-#plugin_sfw:hover{
-    background: rgba(138,155,168,.15);
-    border-radius: .25rem;
-}
-`;
-*/
-
-function create_sfwswitch_button() {
+function sfwswitch_createbutton() {
     if (!document.getElementById("plugin_sfw")) {
         var plugin_div = document.createElement('a');
         plugin_div.className = "mr-2";
@@ -28,14 +6,14 @@ function create_sfwswitch_button() {
         waitForElementClass("navbar-buttons", function () { //#CSS
             var main_Div = document.getElementsByClassName("navbar-buttons")[0]; //#CSS
             main_Div.insertBefore(plugin_div, main_Div.childNodes[0]);
-            document.getElementById("plugin_sfw").addEventListener("click", sfw_switch, false);
+            document.getElementById("plugin_sfw").addEventListener("click", sfwswitch_switcher, false);
             sfw_mode();
         });
     }
 }
 
-function sfw_switch() {
-    var stash_css = find_stashcss();
+function sfwswitch_switcher() {
+    var stash_css = sfwswitch_findstashcss();
     if (stash_css.disabled) {
         console.log("Enable SFW");
         document.getElementById("plugin_sfw").style.color = "#5cff00";
@@ -45,7 +23,7 @@ function sfw_switch() {
     stash_css.disabled = !stash_css.disabled;
 }
 
-function find_stashcss() {
+function sfwswitch_findstashcss() {
     for (let i = 0; i < document.styleSheets.length; i++) {
         if (!document.styleSheets[i].href) {
             continue;
@@ -71,4 +49,4 @@ function waitForElementClass(elementId, callBack, time) {
 }
 
 //addCSS(BUTTON_CSS);
-create_sfwswitch_button();
+sfwswitch_createbutton();
