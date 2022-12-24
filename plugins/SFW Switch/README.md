@@ -10,3 +10,6 @@ To enable the SFW mode, click the button.
 
 # Credit
 The CSS code used is provided by [Stash community](https://stashapp.github.io/Stash-Docs/docs/User-Interface-UI/Custom-CSS-Snippets/#blur-nsfw-images-and-unblur-on-mouse-over).
+
+# Know issue
+Since this script disable a sheet, if you have custom CSS, it could probably disable it as well.
